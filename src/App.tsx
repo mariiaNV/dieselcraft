@@ -11,6 +11,8 @@ type Review = {
   text: string
 }
 
+const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
+
 const PHONE_DISPLAY = '093 383 83 73'
 const PHONE_TEL = '+380933838373'
 const TELEGRAM_URL = 'https://t.me/dieselcraft_od'
@@ -18,9 +20,9 @@ const VIBER_URL = 'viber://chat?number=%2B380933838373'
 
 const ADDRESS_DISPLAY = 'вулиця Академіка Заболотного, 47, Ліски, Одеса'
 
-const HERO_VIDEO_SRC = '/video/6.mp4'
-const HERO_VIDEO_POSTER = '/img/11.jpg'
-const HERO_BANNER_SRC = '/img/banner.jpg'
+const HERO_VIDEO_SRC = withBase('video/6.mp4')
+const HERO_VIDEO_POSTER = withBase('img/11.jpg')
+const HERO_BANNER_SRC = withBase('img/banner.jpg')
 
 export default function App() {
   useRevealOnScroll()
@@ -79,12 +81,12 @@ export default function App() {
 
   const gallery = useMemo(
     () => [
-      { src: '/img/1.jpg', label: 'Процес ремонту' },
-      { src: '/img/2.jpg', label: 'Дизельний двигун' },
-      { src: '/img/3.jpg', label: 'Діагностика' },
-      { src: '/img/4.jpg', label: 'Розбір/збірка' },
-      { src: '/img/5.jpg', label: 'Відновлення вузлів' },
-      { src: '/img/6.jpg', label: 'Результат' },
+      { src: withBase('img/1.jpg'), label: 'Процес ремонту' },
+      { src: withBase('img/2.jpg'), label: 'Дизельний двигун' },
+      { src: withBase('img/3.jpg'), label: 'Діагностика' },
+      { src: withBase('img/4.jpg'), label: 'Розбір/збірка' },
+      { src: withBase('img/5.jpg'), label: 'Відновлення вузлів' },
+      { src: withBase('img/6.jpg'), label: 'Результат' },
     ],
     [],
   )
