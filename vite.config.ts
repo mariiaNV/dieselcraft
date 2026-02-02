@@ -1,7 +1,17 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+function normalizeBase(base: string): string {
+  const trimmed = base.trim()
+  if (!trimmed) return '/'
+  const withLeading = trimmed.startsWith('/') ? trimmed : `/${trimmed}`
+  return withLeading.endsWith('/') ? withLeading : `${withLeading}/`
+}
+
 function resolvePagesBase(): string {
+  const explicit = process.env.VITE_BASE
+  if (explicit) return normalizeBase(explicit)
+
   const repo = process.env.GITHUB_REPOSITORY
   if (!repo) return '/'
 
