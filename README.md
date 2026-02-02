@@ -19,7 +19,11 @@ Landing-page для дизельного сервісу Diesel Craft (Одеса
 3. У полі **Build and deployment** виберіть **Source: GitHub Actions**.
 4. Після цього кожен push у `main` буде автоматично деплоїти сайт на Pages.
 
-Примітка: workflow збирає Vite з `--base=/<repo>/`, тому працює для будь-якої назви репозиторію.
+Після першого успішного деплою посилання на сайт зʼявиться:
+- у **Settings → Pages** (рядок *Your site is live at ...*),
+- і в **Actions** у виконаному workflow (в environment `github-pages` показується `page_url`).
+
+Примітка: для Vite `base` виставляється автоматично під GitHub Pages.
 
 ## Налаштування контактів
 

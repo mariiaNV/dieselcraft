@@ -31,8 +31,13 @@ jobs:
         run: npm ci
 
       - name: Build
-        # GitHub Pages serves project sites from /<repo>/, so set Vite base dynamically.
-        run: npm run build -- --base=/${{ github.event.repository.name }}/
+        run: npm run build
+
+      - name: Disable Jekyll
+        run: echo > dist/.nojekyll
+
+      - name: SPA fallback (404.html)
+        run: cp dist/index.html dist/404.html
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
