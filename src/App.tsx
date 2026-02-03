@@ -279,7 +279,7 @@ export default function App() {
                   </div>
                   <div className="contactRow">
                     <div className="contactLabel">Графік</div>
-                    <div className="contactValue">Пн–Сб · 09:00–19:00</div>
+                    <div className="contactValue">Пн–Пт · 09:00–18:00; Сб · 09:00–14:00</div>
                   </div>
                 </div>
               </div>
