@@ -833,6 +833,21 @@ h3 {
   align-items: start;
 }
 
+.productMedia {
+  padding: 18px;
+  border-radius: 22px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 60px 140px rgba(0, 0, 0, 0.5);
+}
+
+.productImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+}
+
 .bullets {
   list-style: none;
   padding: 0;

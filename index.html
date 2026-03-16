@@ -13,6 +13,30 @@
       gtag('config', 'AW-17927910116')
     </script>
 
+    <!-- Event snippet for Інтерактивні номери телефонів conversion tracking -->
+    <script>
+      function gtag_report_conversion(url) {
+        var callback = function () {
+          if (typeof url !== 'undefined') {
+            window.location = url
+          }
+        }
+
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            send_to: 'AW-17927910116/GMjfCMD-xYkcEOTl2ORC',
+            value: 1.0,
+            currency: 'UAH',
+            event_callback: callback,
+          })
+        } else {
+          callback()
+        }
+
+        return false
+      }
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 

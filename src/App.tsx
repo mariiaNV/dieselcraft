@@ -91,6 +91,41 @@ export default function App() {
     [],
   )
 
+  const shopItem = useMemo(
+    () => ({
+      imageSrc: withBase('img/MOTUL-8100-XCLEAN-5W30-5L.webp'),
+      title: 'Motul 8100 X-clean 5W-30 5L',
+      name: 'Motul 8100 X-clean 5W-30 5L — синтетична моторна олива',
+      brand: 'Motul',
+      description: [
+        'Синтетична моторна олива Motul 8100 X-clean 5W-30 розроблена для сучасних бензинових і дизельних двигунів легкових автомобілів. Забезпечує максимальний захист двигуна, стабільну в’язкість і відмінну роботу за високих та низьких температур.',
+        'Формула відповідає вимогам сучасних екологічних стандартів і сумісна із системами очищення вихлопних газів, зокрема із сажовими фільтрами (DPF) та каталізаторами.',
+        'Motul 8100 X-clean 5W-30 підходить для автомобілів європейських виробників, зокрема BMW, Mercedes-Benz, Volkswagen, Porsche та інших.',
+      ],
+      benefits: [
+        'Повністю синтетична формула',
+        'Відмінний захист двигуна від зношування',
+        'Стабільна робота за екстремальних температур',
+        'Сумісність із DPF та каталізаторами',
+        'Збільшений інтервал заміни оливи',
+      ],
+      specs: [
+        'ACEA C3',
+        'API SN',
+        'BMW Longlife-04',
+        'Mercedes-Benz 229.51 / 229.52',
+        'Volkswagen 502.00 / 505.00 / 505.01',
+        'Porsche C30',
+      ],
+      meta: [
+        { label: 'Об’єм', value: '5 л' },
+        { label: 'Тип оливи', value: 'синтетична' },
+        { label: 'В’язкість', value: '5W-30' },
+      ],
+    }),
+    [],
+  )
+
   return (
     <div className="page">
       <a className="skip" href="#main">
@@ -245,6 +280,78 @@ export default function App() {
           </div>
         </section>
 
+        <section id="shop" className="section sectionAlt">
+          <div className="container">
+            <div className="sectionHead" data-reveal>
+              <h2>Магазин</h2>
+              <p>Моторні оливи. Пишіть — підкажемо наявність і деталі.</p>
+            </div>
+
+            <div className="twoCol">
+              <div className="productMedia" data-reveal>
+                <img
+                  className="productImg"
+                  src={shopItem.imageSrc}
+                  alt="Motul 8100 X-clean 5W-30 5L — фото каністри"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+
+              <div className="panel" data-reveal>
+                <div className="panelTitle">{shopItem.name}</div>
+                <div className="panelLine" />
+
+                <div className="contacts" aria-label="Характеристики">
+                  <div className="contactRow">
+                    <div className="contactLabel">Бренд</div>
+                    <div className="contactValue">{shopItem.brand}</div>
+                  </div>
+                  {shopItem.meta.map((m) => (
+                    <div className="contactRow" key={m.label}>
+                      <div className="contactLabel">{m.label}</div>
+                      <div className="contactValue">{m.value}</div>
+                    </div>
+                  ))}
+                </div>
+
+                {shopItem.description.map((p) => (
+                  <p className="muted" key={p}>
+                    {p}
+                  </p>
+                ))}
+
+                <div className="muted" style={{ marginTop: 16, fontWeight: 800 }}>
+                  Переваги
+                </div>
+                <ul className="bullets" aria-label="Переваги">
+                  {shopItem.benefits.map((b) => (
+                    <li key={b}>{b}</li>
+                  ))}
+                </ul>
+
+                <div className="muted" style={{ marginTop: 16, fontWeight: 800 }}>
+                  Специфікації та допуски
+                </div>
+                <ul className="bullets" aria-label="Специфікації та допуски">
+                  {shopItem.specs.map((s) => (
+                    <li key={s}>{s}</li>
+                  ))}
+                </ul>
+
+                <div className="panelActions" style={{ marginTop: 16 }}>
+                  <a className="btn btnRed" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
+                    Замовити в Telegram
+                  </a>
+                  <a className="btn btnGhost" href="#contacts">
+                    Уточнити наявність
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <section id="contacts" className="section sectionAlt">
           <div className="container">
             <div className="twoCol">
@@ -338,6 +445,7 @@ function Header() {
           <a href="#services">Послуги</a>
           <a href="#why">Чому ми</a>
           <a href="#problems">Проблеми</a>
+          <a href="#shop">Магазин</a>
           <a href="#reviews">Відгуки</a>
           <a href="#contacts">Контакти</a>
         </nav>
@@ -388,6 +496,9 @@ function Header() {
               </a>
               <a href="#problems" onClick={closeMenu}>
                 Проблеми
+              </a>
+              <a href="#shop" onClick={closeMenu}>
+                Магазин
               </a>
               <a href="#reviews" onClick={closeMenu}>
                 Відгуки
