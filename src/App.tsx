@@ -13,12 +13,15 @@ type Review = {
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
-const PHONE_DISPLAY = '093 383 83 73'
-const PHONE_TEL = '+380933838373'
+const PHONE_DISPLAY_1 = '+380 93 383 83 73'
+const PHONE_TEL_1 = '+380933838373'
+const PHONE_DISPLAY_2 = '+380 93 383 83 63'
+const PHONE_TEL_2 = '+380933838363'
 const TELEGRAM_URL = 'https://t.me/dieselcraft_od'
 const VIBER_URL = 'viber://chat?number=%2B380933838373'
 
-const ADDRESS_DISPLAY = 'вулиця Академіка Заболотного, 47, Ліски, Одеса'
+const ADDRESS_DISPLAY_1 = 'вулиця Академіка Заболотного, 47, Ліски, Одеса'
+const ADDRESS_DISPLAY_2 = 'вул. Приміська, 1, Одеса'
 
 const HERO_VIDEO_SRC = withBase('video/6.mp4')
 const HERO_VIDEO_POSTER = withBase('img/11.jpg')
@@ -190,7 +193,7 @@ export default function App() {
                   <a className="btn btnRed" href="#contacts">
                     Записатися на діагностику
                   </a>
-                  <a className="btn btnGhost" href={`tel:${PHONE_TEL}`}>
+                  <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
                     Подзвонити зараз
                   </a>
                 </div>
@@ -364,13 +367,21 @@ export default function App() {
                 <div className="contacts">
                   <div className="contactRow">
                     <div className="contactLabel">Адреса</div>
-                    <div className="contactValue">{ADDRESS_DISPLAY}</div>
+                    <div className="contactValue">
+                      <div>{ADDRESS_DISPLAY_1}</div>
+                      <div>{ADDRESS_DISPLAY_2}</div>
+                    </div>
                   </div>
                   <div className="contactRow">
                     <div className="contactLabel">Телефон</div>
-                    <a className="contactValue" href={`tel:${PHONE_TEL}`}>
-                      {PHONE_DISPLAY}
-                    </a>
+                    <div className="contactValue">
+                      <div>
+                        <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
+                      </div>
+                      <div>
+                        <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
+                      </div>
+                    </div>
                   </div>
                   <div className="contactRow">
                     <div className="contactLabel">Telegram</div>
@@ -451,8 +462,8 @@ function Header() {
         </nav>
 
         <div className="headerActions">
-          <a className="phone" href={`tel:${PHONE_TEL}`} aria-label="Подзвонити">
-            {PHONE_DISPLAY}
+          <a className="phone" href={`tel:${PHONE_TEL_1}`} aria-label="Подзвонити">
+            {PHONE_DISPLAY_1}
           </a>
           <a className="btn btnRed" href="#contacts">
             Записатися
@@ -509,14 +520,27 @@ function Header() {
             </div>
 
             <div className="menuActions">
-              <a className="btn btnGhost btnFull" href={`tel:${PHONE_TEL}`} onClick={closeMenu}>
-                Дзвінок: {PHONE_DISPLAY}
+              <a className="btn btnGhost btnFull" href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
+                Дзвінок: {PHONE_DISPLAY_1}
               </a>
               <a className="btn btnRed btnFull" href="#contacts" onClick={closeMenu}>
                 Записатися на діагностику
               </a>
-              <div className="menuMeta" aria-label="Адреса сервісу">
-                {ADDRESS_DISPLAY}
+              <div className="menuMeta" aria-label="Адреси сервісу">
+                <div>{ADDRESS_DISPLAY_1}</div>
+                <div>{ADDRESS_DISPLAY_2}</div>
+              </div>
+              <div className="menuMeta" aria-label="Телефони сервісу">
+                <div>
+                  <a href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
+                    {PHONE_DISPLAY_1}
+                  </a>
+                </div>
+                <div>
+                  <a href={`tel:${PHONE_TEL_2}`} onClick={closeMenu}>
+                    {PHONE_DISPLAY_2}
+                  </a>
+                </div>
               </div>
               <a className="menuMeta" href={TELEGRAM_URL} target="_blank" rel="noreferrer" onClick={closeMenu}>
                 Написати в Telegram
@@ -559,7 +583,7 @@ function Hero() {
             <a className="btn btnRed" href="#contacts">
               Записатися на діагностику
             </a>
-            <a className="btn btnGhost" href={`tel:${PHONE_TEL}`}>
+            <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
               Подзвонити зараз
             </a>
           </div>
@@ -708,12 +732,14 @@ function Footer() {
         <div className="footerLeft">
           <div className="footerBrand">Diesel Craft</div>
           <div className="footerNote">Ремонт дизельних двигунів · Одеса</div>
-          <div className="footerNote">{ADDRESS_DISPLAY}</div>
+          <div className="footerNote">{ADDRESS_DISPLAY_1}</div>
+          <div className="footerNote">{ADDRESS_DISPLAY_2}</div>
         </div>
         <div className="footerRight">
           <a href="#services">Послуги</a>
           <a href="#contacts">Контакти</a>
-          <a href={`tel:${PHONE_TEL}`}>Дзвінок</a>
+          <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
+          <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
         </div>
       </div>
     </footer>
@@ -723,7 +749,7 @@ function Footer() {
 function MobileCta() {
   return (
     <div className="mobileCta" aria-label="Швидкі дії">
-      <a className="btn btnGhost" href={`tel:${PHONE_TEL}`}>
+      <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
         Дзвінок
       </a>
       <a className="btn btnRed" href="#contacts">
