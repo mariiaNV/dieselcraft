@@ -434,11 +434,13 @@ video {
   gap: 12px;
   padding: calc(14px + env(safe-area-inset-top)) 16px 14px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(255, 42, 42, 0.06), transparent);
 }
 
 .menuTitle {
   font-weight: 900;
   letter-spacing: -0.2px;
+  font-size: 18px;
 }
 
 .menuClose {
@@ -449,14 +451,24 @@ video {
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.86);
   cursor: pointer;
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.menuClose:active {
+  border-color: rgba(255, 42, 42, 0.35);
+  background: rgba(255, 42, 42, 0.10);
+}
+
+.menuContent {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  flex: 1;
 }
 
 .menuLinks {
   display: grid;
-  gap: 6px;
-  padding: 12px 12px 8px;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
+  gap: 8px;
+  padding: 14px 12px;
 }
 
 .menuLinks a {
@@ -467,30 +479,122 @@ video {
   color: rgba(255, 255, 255, 0.86);
   font-weight: 800;
   letter-spacing: -0.1px;
+  font-size: 15px;
+  transition: border-color 180ms ease, background 180ms ease, transform 120ms ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.menuLinks a:hover {
+.menuLinks a:active {
   border-color: rgba(255, 42, 42, 0.35);
-  box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.10);
+  background: rgba(255, 42, 42, 0.12);
+  transform: scale(0.98);
+}
+
+.menuDivider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.10), transparent);
+  margin: 12px 12px;
+}
+
+.menuBranches {
+  padding: 14px 12px;
+}
+
+.menuBranchTitle {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 1.2px;
+  color: rgba(255, 255, 255, 0.55);
+  font-weight: 800;
+  margin-bottom: 12px;
+  padding: 0 2px;
+}
+
+.menuBranch {
+  padding: 14px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 42, 42, 0.18);
+  background: linear-gradient(135deg, rgba(255, 42, 42, 0.05), rgba(255, 255, 255, 0.01));
+  margin-bottom: 10px;
+  transition: border-color 180ms ease, background 180ms ease, transform 120ms ease;
+}
+
+.menuBranch:active {
+  border-color: rgba(255, 42, 42, 0.30);
+  background: linear-gradient(135deg, rgba(255, 42, 42, 0.10), rgba(255, 255, 255, 0.02));
+  transform: scale(0.98);
+}
+
+.menuBranchName {
+  font-weight: 900;
+  color: var(--red);
+  font-size: 14px;
+  margin-bottom: 6px;
+  letter-spacing: -0.1px;
+}
+
+.menuBranchTime {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.55);
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+
+.menuBranchAddr {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.72);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.menuBranchPhone {
+  display: inline-block;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: rgba(255, 42, 42, 0.15);
+  color: var(--red);
+  font-weight: 800;
+  font-size: 13px;
+  transition: background 180ms ease;
+}
+
+.menuBranchPhone:active {
+  background: rgba(255, 42, 42, 0.25);
+}
+
+.menuMessengers {
+  display: flex;
+  gap: 10px;
+}
+
+.menuMessenger {
+  flex: 1;
+  padding: 12px 10px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  text-align: center;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 13px;
+  font-weight: 800;
+  background: rgba(255, 255, 255, 0.03);
+  transition: border-color 180ms ease, background 180ms ease;
+}
+
+.menuMessenger:active {
+  border-color: rgba(255, 42, 42, 0.28);
+  background: rgba(255, 42, 42, 0.10);
 }
 
 .menuActions {
-  padding: 10px 12px calc(14px + env(safe-area-inset-bottom));
+  padding: 14px 12px calc(14px + env(safe-area-inset-bottom));
   display: grid;
   gap: 10px;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
-  margin-top: auto;
-}
-
-.menuMeta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 12px;
-  border-radius: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.10);
-  color: rgba(255, 255, 255, 0.72);
-  background: rgba(255, 255, 255, 0.02);
+  background: linear-gradient(180deg, transparent, rgba(255, 42, 42, 0.03));
 }
 
 .btnFull {

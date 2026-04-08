@@ -564,56 +564,72 @@ function Header() {
               </button>
             </div>
 
-            <div className="menuLinks" aria-label="Розділи">
-              <a href="#services" onClick={closeMenu}>
-                Послуги
-              </a>
-              <a href="#why" onClick={closeMenu}>
-                Чому ми
-              </a>
-              <a href="#problems" onClick={closeMenu}>
-                Проблеми
-              </a>
-              <a href="#shop" onClick={closeMenu}>
-                Магазин
-              </a>
-              <a href="#reviews" onClick={closeMenu}>
-                Відгуки
-              </a>
-              <a href="#contacts" onClick={closeMenu}>
-                Контакти
-              </a>
+            <div className="menuContent">
+              <div className="menuLinks" aria-label="Розділи">
+                <a href="#services" onClick={closeMenu}>
+                  🔧 Послуги
+                </a>
+                <a href="#why" onClick={closeMenu}>
+                  ⭐ Чому ми
+                </a>
+                <a href="#problems" onClick={closeMenu}>
+                  🚗 Типові проблеми
+                </a>
+                <a href="#gallery" onClick={closeMenu}>
+                  📸 Галерея
+                </a>
+                <a href="#reviews" onClick={closeMenu}>
+                  💬 Відгуки
+                </a>
+                <a href="#shop" onClick={closeMenu}>
+                  🛢️ Магазин
+                </a>
+              </div>
+
+              <div className="menuDivider" />
+
+              <div className="menuBranches" aria-label="Філіали">
+                <div className="menuBranchTitle">Наші філіали</div>
+                
+                {/* Філіал 1 */}
+                <div className="menuBranch">
+                  <div className="menuBranchName">{BRANCH_1.name}</div>
+                  <div className="menuBranchTime">{BRANCH_1.hours}</div>
+                  <div className="menuBranchAddr">{BRANCH_1.address}</div>
+                  <a href={`tel:${BRANCH_1.phoneTel}`} className="menuBranchPhone" onClick={closeMenu}>
+                    📞 {BRANCH_1.phone}
+                  </a>
+                </div>
+
+                {/* Філіал 2 */}
+                <div className="menuBranch">
+                  <div className="menuBranchName">{BRANCH_2.name}</div>
+                  <div className="menuBranchTime">{BRANCH_2.hours}</div>
+                  <div className="menuBranchAddr">{BRANCH_2.address}</div>
+                  <a href={`tel:${BRANCH_2.phoneTel}`} className="menuBranchPhone" onClick={closeMenu}>
+                    📞 {BRANCH_2.phone}
+                  </a>
+                </div>
+              </div>
+
+              <div className="menuDivider" />
             </div>
 
             <div className="menuActions">
-              <a className="btn btnGhost btnFull" href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
-                Дзвінок: {PHONE_DISPLAY_1}
-              </a>
               <a className="btn btnRed btnFull" href="#contacts" onClick={closeMenu}>
                 Записатися на діагностику
               </a>
-              <div className="menuMeta" aria-label="Адреси сервісу">
-                <div>{ADDRESS_DISPLAY_1}</div>
-                <div>{ADDRESS_DISPLAY_2}</div>
-              </div>
-              <div className="menuMeta" aria-label="Телефони сервісу">
-                <div>
-                  <a href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
-                    {PHONE_DISPLAY_1}
-                  </a>
-                </div>
-                <div>
-                  <a href={`tel:${PHONE_TEL_2}`} onClick={closeMenu}>
-                    {PHONE_DISPLAY_2}
-                  </a>
-                </div>
-              </div>
-              <a className="menuMeta" href={TELEGRAM_URL} target="_blank" rel="noreferrer" onClick={closeMenu}>
-                Написати в Telegram
+              <a className="btn btnGhost btnFull" href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
+                📞 Дзвонити
               </a>
-              <a className="menuMeta" href={VIBER_URL} onClick={closeMenu}>
-                Написати у Viber
-              </a>
+              <div className="menuMessengers">
+                <a className="menuMessenger" href={TELEGRAM_URL} target="_blank" rel="noreferrer" onClick={closeMenu}>
+                  ✈️ Telegram
+                </a>
+                <a className="menuMessenger" href={VIBER_URL} onClick={closeMenu}>
+                  💬 Viber
+                </a>
+              </div>
             </div>
           </div>
         </div>
