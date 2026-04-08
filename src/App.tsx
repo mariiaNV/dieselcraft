@@ -110,6 +110,7 @@ export default function App() {
     [],
   )
 
+  // @ts-ignore-next-line - unused constant left for potential future shop section
   const shopItem = useMemo(
     () => ({
       imageSrc: withBase('img/MOTUL-8100-XCLEAN-5W30-5L.webp'),
@@ -160,8 +161,8 @@ export default function App() {
               <h2>Потрібна діагностика?</h2>
               <p>Порівняйте результати з конкурентами — ми знайдемо справжню причину.</p>
             </div>
-            <a href="#contacts" className="btn btnRed btnXl">
-              📞 Записатися безплатно
+            <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl">
+              ☎️ Позвонити одразу
             </a>
           </div>
         </div>
@@ -189,8 +190,8 @@ export default function App() {
                     <a href={`#service-${idx + 1}`}>{s.title}</a>
                   </h3>
                   <p>{s.desc}</p>
-                  <a className="btn btnRed" href="#contacts">
-                    Записатися
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
+                    ☎️ Позвонити
                   </a>
                 </article>
               ))}
@@ -222,8 +223,8 @@ export default function App() {
                   Контроль, сила і впевненість у твоєму дизелі.
                 </div>
                 <div className="panelActions">
-                  <a className="btn btnRed" href="#contacts">
-                    Записатися на діагностику
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
+                    ☎️ Позвонити
                   </a>
                   <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
                     Подзвонити зараз
@@ -320,74 +321,56 @@ export default function App() {
           </div>
         </section>
 
-        <section id="shop" className="section sectionAlt">
+        <section id="guarantee" className="section sectionAlt">
           <div className="container">
             <div className="sectionHead" data-reveal>
-              <h2>Магазин моторних олив</h2>
-              <p>Якісні моторні оливи для дизельних двигунів. Питайте про наявність, ціни та рекомендований вибір для вашого авто. Замовленням в <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a> та <a href={VIBER_URL}>Viber</a>.</p>
+              <h2>Чому клієнти вибирають нас</h2>
+              <p>Результати говорять самі за себе. Гарантія на всі роботи, чесна діагностика, реальні майстри.</p>
             </div>
 
-            <div className="twoCol">
-              <div className="productMedia" data-reveal>
-                <img
-                  className="productImg"
-                  src={shopItem.imageSrc}
-                  alt="Motul 8100 X-clean 5W-30 5L — фото каністри"
-                  loading="lazy"
-                  decoding="async"
-                />
+            <div className="guaranteeGrid">
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">✅</div>
+                <h3>Гарантія на роботи</h3>
+                <p>Не задоволені результатом? Переробимо безплатно. Гарантія — це наша репутація.</p>
               </div>
 
-              <div className="panel" data-reveal>
-                <div className="panelTitle">{shopItem.name}</div>
-                <div className="panelLine" />
-
-                <div className="contacts" aria-label="Характеристики">
-                  <div className="contactRow">
-                    <div className="contactLabel">Бренд</div>
-                    <div className="contactValue">{shopItem.brand}</div>
-                  </div>
-                  {shopItem.meta.map((m) => (
-                    <div className="contactRow" key={m.label}>
-                      <div className="contactLabel">{m.label}</div>
-                      <div className="contactValue">{m.value}</div>
-                    </div>
-                  ))}
-                </div>
-
-                {shopItem.description.map((p) => (
-                  <p className="muted" key={p}>
-                    {p}
-                  </p>
-                ))}
-
-                <div className="muted" style={{ marginTop: 16, fontWeight: 800 }}>
-                  Переваги
-                </div>
-                <ul className="bullets" aria-label="Переваги">
-                  {shopItem.benefits.map((b) => (
-                    <li key={b}>{b}</li>
-                  ))}
-                </ul>
-
-                <div className="muted" style={{ marginTop: 16, fontWeight: 800 }}>
-                  Специфікації та допуски
-                </div>
-                <ul className="bullets" aria-label="Специфікації та допуски">
-                  {shopItem.specs.map((s) => (
-                    <li key={s}>{s}</li>
-                  ))}
-                </ul>
-
-                <div className="panelActions" style={{ marginTop: 16 }}>
-                  <a className="btn btnRed" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
-                    Замовити в Telegram
-                  </a>
-                  <a className="btn btnGhost" href="#contacts">
-                    Уточнити наявність
-                  </a>
-                </div>
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">🔍</div>
+                <h3>Точна діагностика</h3>
+                <p>Знаходимо справжню причину проблеми. Без зайвих замін і невиправданих витрат.</p>
               </div>
+
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">⚡</div>
+                <h3>Швидко й якісно</h3>
+                <p>Мінімізуємо час простою. Комерційний транспорт — наш пріоритет.</p>
+              </div>
+
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">👨‍🔧</div>
+                <h3>Професійна команда</h3>
+                <p>Реальні майстри з років досвіду. Не перекупи, не гараж — серйозна компанія.</p>
+              </div>
+
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">📍</div>
+                <h3>Два філіали в Одесі</h3>
+                <p>Зручна локація. Приїжджайте до найближчого — обслуговування однакової якості.</p>
+              </div>
+
+              <div className="guaranteeCard" data-reveal>
+                <div className="guaranteeIcon">💰</div>
+                <h3>Справедливі ціни</h3>
+                <p>Прозорі розрахунки. Немає скритих витрат, все обговорюється заздалегідь.</p>
+              </div>
+            </div>
+
+            <div className="guaranteeCTA" data-reveal>
+              <h3>Готові розпочати ремонт?</h3>
+              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl">
+                ☎️ Позвонити зараз
+              </a>
             </div>
           </div>
         </section>
@@ -853,3 +836,4 @@ function MobileCta() {
     </div>
   )
 }
+
