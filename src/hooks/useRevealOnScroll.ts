@@ -5,6 +5,11 @@ export function useRevealOnScroll() {
     const nodes = Array.from(document.querySelectorAll<HTMLElement>('[data-reveal]'))
     if (nodes.length === 0) return
 
+    if (!('IntersectionObserver' in window)) {
+      for (const node of nodes) node.setAttribute('data-reveal-state', 'shown')
+      return
+    }
+
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (prefersReduced) {
       for (const node of nodes) node.setAttribute('data-reveal-state', 'shown')

@@ -110,42 +110,6 @@ export default function App() {
     [],
   )
 
-  // @ts-ignore-next-line - unused constant left for potential future shop section
-  const shopItem = useMemo(
-    () => ({
-      imageSrc: withBase('img/MOTUL-8100-XCLEAN-5W30-5L.webp'),
-      title: 'Motul 8100 X-clean 5W-30 5L',
-      name: 'Motul 8100 X-clean 5W-30 5L — синтетична моторна олива',
-      brand: 'Motul',
-      description: [
-        'Синтетична моторна олива Motul 8100 X-clean 5W-30 розроблена для сучасних бензинових і дизельних двигунів легкових автомобілів. Забезпечує максимальний захист двигуна, стабільну в’язкість і відмінну роботу за високих та низьких температур.',
-        'Формула відповідає вимогам сучасних екологічних стандартів і сумісна із системами очищення вихлопних газів, зокрема із сажовими фільтрами (DPF) та каталізаторами.',
-        'Motul 8100 X-clean 5W-30 підходить для автомобілів європейських виробників, зокрема BMW, Mercedes-Benz, Volkswagen, Porsche та інших.',
-      ],
-      benefits: [
-        'Повністю синтетична формула',
-        'Відмінний захист двигуна від зношування',
-        'Стабільна робота за екстремальних температур',
-        'Сумісність із DPF та каталізаторами',
-        'Збільшений інтервал заміни оливи',
-      ],
-      specs: [
-        'ACEA C3',
-        'API SN',
-        'BMW Longlife-04',
-        'Mercedes-Benz 229.51 / 229.52',
-        'Volkswagen 502.00 / 505.00 / 505.01',
-        'Porsche C30',
-      ],
-      meta: [
-        { label: 'Об’єм', value: '5 л' },
-        { label: 'Тип оливи', value: 'синтетична' },
-        { label: 'В’язкість', value: '5W-30' },
-      ],
-    }),
-    [],
-  )
-
   return (
     <div className="page">
       <a className="skip" href="#main">
@@ -256,14 +220,14 @@ export default function App() {
                 { id: 'start', text: 'Погано заводиться' },
                 { id: 'fuel', text: 'Збільшилась витрата палива' },
               ].map((p) => (
-                <a href="#contacts" key={p.id} className="chip" data-reveal>
+                <a href={`tel:${PHONE_TEL_1}`} key={p.id} className="chip" data-reveal>
                   {p.text}
                 </a>
               ))}
             </div>
 
             <div className="center" data-reveal>
-              <a className="btn btnRed" href="#contacts">
+              <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
                 Ми знаємо, як це вирішити
               </a>
             </div>
@@ -380,7 +344,7 @@ export default function App() {
             <div className="sectionHead" data-reveal>
               <h2>Контакти і режим роботи</h2>
               <p>
-                Два зручних філіали в Одесі. Звоніть в найближчий до вас, запишіться на діагностику або напишіть в <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a>.
+                Два зручних філіали в Одесі. Дзвоніть у найближчий або напишіть у <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a>.
               </p>
             </div>
 
@@ -453,17 +417,17 @@ export default function App() {
                 <h3>Готові розпочати?</h3>
                 <p>Позвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
-                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+              <div className="quickContacts" aria-label="Швидкі контакти">
+                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_1.phone}`}>
                   📞 {BRANCH_1.phone}
                 </a>
-                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_2.phone}`}>
                   📞 {BRANCH_2.phone}
                 </a>
-                <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
                   📱 Telegram
                 </a>
-                <a href={VIBER_URL} className="btn btnGhost" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                <a href={VIBER_URL} className="btn btnGhost">
                   💬 Viber
                 </a>
               </div>
@@ -518,7 +482,6 @@ function Header() {
           <a href="#services">Послуги</a>
           <a href="#why">Чому ми</a>
           <a href="#problems">Проблеми</a>
-          <a href="#shop">Магазин</a>
           <a href="#reviews">Відгуки</a>
           <a href="#contacts">Контакти</a>
         </nav>
@@ -527,8 +490,8 @@ function Header() {
           <a className="phone" href={`tel:${PHONE_TEL_1}`} aria-label="Подзвонити">
             {PHONE_DISPLAY_1}
           </a>
-          <a className="btn btnRed" href="#contacts">
-            Записатися
+          <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} aria-label={`Позвонити ${PHONE_DISPLAY_1}`}>
+            ☎️ Позвонити
           </a>
           <button
             type="button"
@@ -590,7 +553,7 @@ function Header() {
                   <div className="menuBranchName">{BRANCH_1.name}</div>
                   <div className="menuBranchTime">{BRANCH_1.hours}</div>
                   <div className="menuBranchAddr">{BRANCH_1.address}</div>
-                  <a href={`tel:${BRANCH_1.phoneTel}`} className="menuBranchPhone" onClick={closeMenu}>
+                  <a href={`tel:${BRANCH_1.phoneTel}`} className="menuBranchPhone" aria-label={`Позвонити ${BRANCH_1.phone}`}>
                     📞 {BRANCH_1.phone}
                   </a>
                 </div>
@@ -600,7 +563,7 @@ function Header() {
                   <div className="menuBranchName">{BRANCH_2.name}</div>
                   <div className="menuBranchTime">{BRANCH_2.hours}</div>
                   <div className="menuBranchAddr">{BRANCH_2.address}</div>
-                  <a href={`tel:${BRANCH_2.phoneTel}`} className="menuBranchPhone" onClick={closeMenu}>
+                  <a href={`tel:${BRANCH_2.phoneTel}`} className="menuBranchPhone" aria-label={`Позвонити ${BRANCH_2.phone}`}>
                     📞 {BRANCH_2.phone}
                   </a>
                 </div>
@@ -610,17 +573,17 @@ function Header() {
             </div>
 
             <div className="menuActions">
-              <a className="btn btnRed btnFull" href="#contacts" onClick={closeMenu}>
-                Записатися на діагностику
+              <a className="btn btnRed btnFull" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Позвонити ${BRANCH_1.phone}`}>
+                ☎️ {BRANCH_1.phone}
               </a>
-              <a className="btn btnGhost btnFull" href={`tel:${PHONE_TEL_1}`} onClick={closeMenu}>
-                📞 Дзвонити
+              <a className="btn btnGhost btnFull" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Позвонити ${BRANCH_2.phone}`}>
+                ☎️ {BRANCH_2.phone}
               </a>
               <div className="menuMessengers">
-                <a className="menuMessenger" href={TELEGRAM_URL} target="_blank" rel="noreferrer" onClick={closeMenu}>
+                <a className="menuMessenger" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
                   ✈️ Telegram
                 </a>
-                <a className="menuMessenger" href={VIBER_URL} onClick={closeMenu}>
+                <a className="menuMessenger" href={VIBER_URL}>
                   💬 Viber
                 </a>
               </div>
@@ -656,11 +619,11 @@ function Hero() {
             Професійна діагностика та ремонт дизельних моторів з гарантією.
           </p>
           <div className="ctaRow">
-            <a className="btn btnRed" href="#contacts">
-              Записатися на діагностику
+            <a className="btn btnRed" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Позвонити ${BRANCH_1.phone}`}>
+              ☎️ Позвонити (Ліски)
             </a>
-            <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
-              Подзвонити зараз
+            <a className="btn btnGhost" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Позвонити ${BRANCH_2.phone}`}>
+              ☎️ Позвонити (Приміська)
             </a>
           </div>
           <div className="heroBadges">
@@ -726,7 +689,6 @@ function Footer() {
           <nav aria-label="Додаткова навігація">
             <a href="#gallery">Галерея</a>
             <a href="#reviews">Відгуки</a>
-            <a href="#shop">Магазин</a>
             <a href="#contacts">Контакти</a>
           </nav>
           <nav aria-label="Контакти">
