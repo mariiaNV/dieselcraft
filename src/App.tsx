@@ -153,6 +153,20 @@ export default function App() {
 
       <Header />
 
+      <section id="hero-cta" className="section heroCTASection" data-reveal>
+        <div className="container">
+          <div className="heroCTAContent">
+            <div className="heroCTAText">
+              <h2>Потрібна діагностика?</h2>
+              <p>Порівняйте результати з конкурентами — ми знайдемо справжню причину.</p>
+            </div>
+            <a href="#contacts" className="btn btnRed btnXl">
+              📞 Записатися безплатно
+            </a>
+          </div>
+        </div>
+      </section>
+
       <main id="main" role="main">
         <Hero />
 

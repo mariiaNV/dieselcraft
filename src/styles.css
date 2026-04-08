@@ -294,6 +294,16 @@ video {
   border-color: rgba(255, 42, 42, 0.62);
 }
 
+.btnXl {
+  padding: 14px 20px;
+  font-size: 16px;
+  font-weight: 800;
+  min-height: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .btnGhost {
   background: rgba(255, 255, 255, 0.03);
   border-color: rgba(255, 255, 255, 0.14);
@@ -785,10 +795,10 @@ h3 {
 }
 
 .card:hover {
-  transform: translateY(-2px);
-  border-color: rgba(255, 42, 42, 0.28);
-  background: rgba(255, 255, 255, 0.055);
-  box-shadow: 0 55px 150px rgba(0, 0, 0, 0.55);
+  transform: translateY(-4px);
+  border-color: rgba(255, 42, 42, 0.35);
+  background: rgba(255, 255, 255, 0.065);
+  box-shadow: 0 55px 180px rgba(255, 42, 42, 0.18);
 }
 
 .card::before {
@@ -824,6 +834,13 @@ h3 {
   margin: 10px 0 16px;
   color: rgba(255, 255, 255, 0.72);
   line-height: 1.6;
+  font-size: 15px;
+}
+
+.card h3 {
+  color: var(--text);
+  font-size: 18px;
+  line-height: 1.4;
 }
 
 .twoCol {
@@ -978,6 +995,8 @@ h3 {
 
 .reviewText {
   margin: 10px 0 0;
+  color: rgba(255, 255, 255, 0.82);
+  line-height: 1.7;
 }
 
 .muted {
@@ -1138,6 +1157,44 @@ h3 {
   font-size: 14px;
 }
 
+/* Hero CTA Section */
+.heroCTASection {
+  background: linear-gradient(135deg, rgba(255, 42, 42, 0.12), rgba(255, 255, 255, 0.03));
+  border-top: 2px solid rgba(255, 42, 42, 0.22);
+  border-bottom: 2px solid rgba(255, 42, 42, 0.22);
+  padding: 52px 0;
+}
+
+.heroCTAContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  padding: 28px 32px;
+  border-radius: 26px;
+  border: 1px solid rgba(255, 42, 42, 0.28);
+  background: linear-gradient(135deg, rgba(255, 42, 42, 0.08), rgba(255, 42, 42, 0.03));
+  box-shadow: 0 30px 100px rgba(255, 42, 42, 0.15);
+  transition: transform 320ms ease, box-shadow 320ms ease;
+}
+
+.heroCTAContent:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 45px 140px rgba(255, 42, 42, 0.22);
+}
+
+.heroCTAText h2 {
+  margin-bottom: 8px;
+}
+
+.heroCTAText p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 15px;
+  line-height: 1.6;
+  max-width: 42ch;
+}
+
 .form {
   padding: 18px;
   border-radius: 22px;
@@ -1179,12 +1236,19 @@ textarea {
   background: rgba(10, 10, 11, 0.55);
   color: rgba(255, 255, 255, 0.92);
   outline: none;
+  transition: border-color 220ms ease, background 220ms ease, box-shadow 220ms ease;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.48);
 }
 
 input:focus,
 textarea:focus {
   border-color: rgba(255, 42, 42, 0.55);
-  box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.14);
+  background: rgba(10, 10, 11, 0.75);
+  box-shadow: 0 0 0 3px rgba(255, 42, 42, 0.18);
 }
 
 textarea {
@@ -1193,20 +1257,25 @@ textarea {
 
 .formMsg {
   margin-top: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.14);
   background: rgba(255, 255, 255, 0.04);
   color: rgba(255, 255, 255, 0.82);
   line-height: 1.55;
+  font-weight: 700;
 }
 
 .formMsg.ok {
-  border-color: rgba(80, 255, 160, 0.25);
+  border-color: rgba(80, 255, 160, 0.35);
+  background: rgba(80, 255, 160, 0.08);
+  color: rgba(100, 255, 180, 0.95);
 }
 
 .formMsg.err {
-  border-color: rgba(255, 42, 42, 0.32);
+  border-color: rgba(255, 42, 42, 0.42);
+  background: rgba(255, 42, 42, 0.10);
+  color: rgba(255, 100, 100, 0.95);
 }
 
 .formFoot {
@@ -1376,6 +1445,16 @@ textarea {
 
   .section {
     padding: 62px 0;
+  }
+
+  .heroCTASection {
+    padding: 32px 0;
+  }
+
+  .heroCTAContent {
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px 16px;
   }
 
   .ctaRow {
