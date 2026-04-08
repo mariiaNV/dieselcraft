@@ -450,10 +450,23 @@ export default function App() {
 
             <div className="contactFormSection" data-reveal>
               <div className="contactFormHead">
-                <h3>Записатися на діагностику</h3>
-                <p>Залиште контакти — передзвонимо та узгодимо час</p>
+                <h3>Готові розпочати?</h3>
+                <p>Позвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
               </div>
-              <LeadForm />
+              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '12px' }}>
+                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                  📞 {BRANCH_1.phone}
+                </a>
+                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                  📞 {BRANCH_2.phone}
+                </a>
+                <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                  📱 Telegram
+                </a>
+                <a href={VIBER_URL} className="btn btnGhost" style={{ padding: '14px', textAlign: 'center', fontWeight: 700 }}>
+                  💬 Viber
+                </a>
+              </div>
             </div>
           </div>
         </section>
@@ -564,9 +577,7 @@ function Header() {
                 <a href="#reviews" onClick={closeMenu}>
                   💬 Відгуки
                 </a>
-                <a href="#shop" onClick={closeMenu}>
-                  🛢️ Магазин
-                </a>
+
               </div>
 
               <div className="menuDivider" />
@@ -695,101 +706,6 @@ function Hero() {
   )
 }
 
-function LeadForm() {
-  const [status, setStatus] = useState<'idle' | 'sending' | 'sent' | 'error'>('idle')
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    if (status === 'sending') return
-
-    const form = e.currentTarget
-    const formData = new FormData(form)
-    const payload = {
-      name: String(formData.get('name') ?? ''),
-      phone: String(formData.get('phone') ?? ''),
-      issue: String(formData.get('issue') ?? ''),
-      source: 'site',
-      city: 'Одеса',
-    }
-
-    setStatus('sending')
-
-    const endpoint = import.meta.env.VITE_LEAD_ENDPOINT as string | undefined
-    try {
-      if (endpoint) {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-        })
-        if (!res.ok) throw new Error('Bad response')
-      } else {
-        const subject = encodeURIComponent('Diesel Craft — заявка з сайту')
-        const body = encodeURIComponent(
-          `Ім'я: ${payload.name}\nТелефон: ${payload.phone}\nПроблема: ${payload.issue}\nМісто: Одеса`,
-        )
-        window.location.href = `mailto:dieselcraft@example.com?subject=${subject}&body=${body}`
-      }
-
-      setStatus('sent')
-      form.reset()
-    } catch {
-      setStatus('error')
-    }
-  }
-
-  return (
-    <form className="form" onSubmit={onSubmit} aria-label="Форма заявки">
-      <div className="formTitle">Заявка на діагностику</div>
-      <div className="formHint">Залиште контакти — передзвонимо та узгодимо час.</div>
-
-      <label className="field">
-        <span>Імʼя</span>
-        <input name="name" autoComplete="name" placeholder="Ваше імʼя" required />
-      </label>
-
-      <label className="field">
-        <span>Телефон</span>
-        <input
-          name="phone"
-          inputMode="tel"
-          autoComplete="tel"
-          placeholder="093 383 83 73"
-          required
-        />
-      </label>
-
-      <label className="field">
-        <span>Що турбує</span>
-        <textarea
-          name="issue"
-          rows={4}
-          placeholder="Димить / не тягне / трясе / стукає / не заводиться..."
-          required
-        />
-      </label>
-
-      <button className="btn btnRed btnFull" type="submit" disabled={status === 'sending'}>
-        {status === 'sending' ? 'Відправляємо…' : 'Відправити заявку'}
-      </button>
-
-      {status === 'sent' ? (
-        <div className="formMsg ok">Заявку прийнято. Ми звʼяжемось найближчим часом.</div>
-      ) : null}
-      {status === 'error' ? (
-        <div className="formMsg err">
-          Не вдалося відправити. Спробуйте подзвонити або написати в месенджер.
-        </div>
-      ) : null}
-
-      <div className="formFoot">
-        Натискаючи «Відправити», ви погоджуєтесь на обробку контактних даних для зворотного
-        звʼязку.
-      </div>
-    </form>
-  )
-}
-
 function Footer() {
   return (
     <footer className="footer">
@@ -827,11 +743,11 @@ function Footer() {
 function MobileCta() {
   return (
     <div className="mobileCta" aria-label="Швидкі дії">
-      <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`} title={PHONE_DISPLAY_1}>
-        ☎️ Дзвінок
+      <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} title={`Позвонити ${PHONE_DISPLAY_1}`}>
+        ☎️ Позвонити
       </a>
-      <a className="btn btnRed" href="#contacts" title="Записатися на діагностику">
-        ✏️ Запис
+      <a className="btn btnGhost" href={`tel:${PHONE_TEL_2}`} title={`Позвонити ${PHONE_DISPLAY_2}`}>
+        ☎️ Друга філія
       </a>
     </div>
   )
