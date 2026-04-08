@@ -24,8 +24,14 @@ function installPhoneConversionTracking() {
 
       if (typeof window.gtag_report_conversion !== 'function') return
 
-      event.preventDefault()
-      window.gtag_report_conversion(href)
+      // IMPORTANT (iOS Safari): do not preventDefault() for tel: links.
+      // Safari can block opening the dialer if navigation is not a direct user gesture.
+      // We still send the conversion event without redirecting.
+      try {
+        window.gtag_report_conversion()
+      } catch {
+        // ignore tracking errors
+      }
     },
     true,
   )
