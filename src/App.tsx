@@ -20,8 +20,24 @@ const PHONE_TEL_2 = '+380933838363'
 const TELEGRAM_URL = 'https://t.me/dieselcraft_od'
 const VIBER_URL = 'viber://chat?number=%2B380933838373'
 
-const ADDRESS_DISPLAY_1 = 'вулиця Академіка Заболотного, 47, Ліски, Одеса'
-const ADDRESS_DISPLAY_2 = 'вул. Приміська, 1, Одеса'
+const BRANCH_1 = {
+  name: 'Філіал в Ліськах',
+  address: 'вулиця Академіка Заболотного, 47, Ліски, Одеса',
+  phone: PHONE_DISPLAY_1,
+  phoneTel: PHONE_TEL_1,
+  hours: 'Пн–Пт: 09:00–18:00, Сб: 09:00–14:00',
+}
+
+const BRANCH_2 = {
+  name: 'Філіал на Приміській',
+  address: 'вул. Приміська, 1, Одеса',
+  phone: PHONE_DISPLAY_2,
+  phoneTel: PHONE_TEL_2,
+  hours: 'Пн–Пт: 09:00–18:00, Сб: 09:00–14:00',
+}
+
+const ADDRESS_DISPLAY_1 = BRANCH_1.address
+const ADDRESS_DISPLAY_2 = BRANCH_2.address
 
 const HERO_VIDEO_SRC = withBase('video/6.mp4')
 const HERO_VIDEO_POSTER = withBase('img/11.jpg')
@@ -364,58 +380,83 @@ export default function App() {
 
         <section id="contacts" className="section sectionAlt">
           <div className="container">
-            <div className="twoCol">
-              <div data-reveal>
-                <h2>Контакти і режим роботи</h2>
-                <p className="muted">
-                  Знаходимось в Одесі. Запишіться на <a href="#contacts">діагностику</a> — відповімо швидко та по суті. Дивіться наші <a href="#services">послуги</a> та <a href="#reviews">відгуки</a>.
-                </p>
+            <div className="sectionHead" data-reveal>
+              <h2>Контакти і режим роботи</h2>
+              <p>
+                Два зручних філіали в Одесі. Звоніть в найближчий до вас, запишіться на діагностику або напишіть в <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a>.
+              </p>
+            </div>
 
-                <div className="contacts">
-                  <div className="contactRow">
-                    <div className="contactLabel">Адреса</div>
-                    <div className="contactValue">
-                      <div>{ADDRESS_DISPLAY_1}</div>
-                      <div>{ADDRESS_DISPLAY_2}</div>
-                    </div>
+            <div className="branches">
+              {/* Філіал 1 */}
+              <div className="branch" data-reveal>
+                <div className="branchHead">
+                  <h3 className="branchName">{BRANCH_1.name}</h3>
+                  <div className="branchMeta">{BRANCH_1.hours}</div>
+                </div>
+
+                <div className="branchBody">
+                  <div className="branchItem">
+                    <div className="branchLabel">Адреса</div>
+                    <div className="branchValue">{BRANCH_1.address}</div>
                   </div>
-                  <div className="contactRow">
-                    <div className="contactLabel">Телефон</div>
-                    <div className="contactValue">
-                      <div>
-                        <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a> — основний
-                      </div>
-                      <div>
-                        <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a> — додатковий
-                      </div>
-                    </div>
-                  </div>
-                  <div className="contactRow">
-                    <div className="contactLabel">Telegram</div>
-                    <a className="contactValue" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
-                      @dieselcraft_od
+
+                  <div className="branchItem">
+                    <div className="branchLabel">Телефон</div>
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="branchValue phone-link">
+                      {BRANCH_1.phone}
                     </a>
                   </div>
-                  <div className="contactRow">
-                    <div className="contactLabel">Viber</div>
-                    <a className="contactValue" href={VIBER_URL}>
-                      Написати у Viber
+
+                  <div className="branchActions">
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed">
+                      📞 Дзвонити
                     </a>
-                  </div>
-                  <div className="contactRow">
-                    <div className="contactLabel">Режим роботи</div>
-                    <div className="contactValue">
-                      <div><strong>Пн–Пт:</strong> 09:00–18:00</div>
-                      <div><strong>Сб:</strong> 09:00–14:00</div>
-                      <div><strong>Нд:</strong> Закрито</div>
-                    </div>
+                    <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
+                      ✉️ Telegram
+                    </a>
                   </div>
                 </div>
               </div>
 
-              <div data-reveal>
-                <LeadForm />
+              {/* Філіал 2 */}
+              <div className="branch" data-reveal>
+                <div className="branchHead">
+                  <h3 className="branchName">{BRANCH_2.name}</h3>
+                  <div className="branchMeta">{BRANCH_2.hours}</div>
+                </div>
+
+                <div className="branchBody">
+                  <div className="branchItem">
+                    <div className="branchLabel">Адреса</div>
+                    <div className="branchValue">{BRANCH_2.address}</div>
+                  </div>
+
+                  <div className="branchItem">
+                    <div className="branchLabel">Телефон</div>
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="branchValue phone-link">
+                      {BRANCH_2.phone}
+                    </a>
+                  </div>
+
+                  <div className="branchActions">
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed">
+                      📞 Дзвонити
+                    </a>
+                    <a href={VIBER_URL} className="btn btnGhost">
+                      ✉️ Viber
+                    </a>
+                  </div>
+                </div>
               </div>
+            </div>
+
+            <div className="contactFormSection" data-reveal>
+              <div className="contactFormHead">
+                <h3>Записатися на діагностику</h3>
+                <p>Залиште контакти — передзвонимо та узгодимо час</p>
+              </div>
+              <LeadForm />
             </div>
           </div>
         </section>
@@ -773,11 +814,11 @@ function Footer() {
 function MobileCta() {
   return (
     <div className="mobileCta" aria-label="Швидкі дії">
-      <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
-        Дзвінок
+      <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`} title={PHONE_DISPLAY_1}>
+        ☎️ Дзвінок
       </a>
-      <a className="btn btnRed" href="#contacts">
-        Запис
+      <a className="btn btnRed" href="#contacts" title="Записатися на діагностику">
+        ✏️ Запис
       </a>
     </div>
   )

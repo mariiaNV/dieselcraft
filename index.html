@@ -95,13 +95,15 @@
             "@type": "ContactPoint",
             "contactType": "Customer Service",
             "telephone": "+380933838373",
-            "contactOption": "TollFree"
+            "contactOption": "TollFree",
+            "areaServed": "Ліські"
           },
           {
             "@type": "ContactPoint",
             "contactType": "Customer Service", 
             "telephone": "+380933838363",
-            "contactOption": "TollFree"
+            "contactOption": "TollFree",
+            "areaServed": "Приміська"
           }
         ],
         "address": [
@@ -270,6 +272,70 @@
               "@type": "Answer",
               "text": "Так, спеціалізуємось на ремонті дизельних двигунів для буса та робочих авто. Мінімізуємо простій."
             }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Diesel Craft — Філіал в Ліськах",
+        "@id": "https://diesel-craft.com.ua/#branch-1",
+        "url": "https://diesel-craft.com.ua/",
+        "telephone": "+380933838373",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "вулиця Академіка Заболотного, 47, Ліски",
+          "addressLocality": "Одеса",
+          "postalCode": "65000",
+          "addressCountry": "UA"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "46.4817",
+          "longitude": "30.7338"
+        },
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "14:00"
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Diesel Craft — Філіал на Приміській",
+        "@id": "https://diesel-craft.com.ua/#branch-2",
+        "url": "https://diesel-craft.com.ua/",
+        "telephone": "+380933838363",
+        "address": {
+          "@type": "PostalAddress",
+          "streetAddress": "вул. Приміська, 1",
+          "addressLocality": "Одеса",
+          "postalCode": "65000",
+          "addressCountry": "UA"
+        },
+        "areaServed": "Одеса",
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "14:00"
           }
         ]
       }]
