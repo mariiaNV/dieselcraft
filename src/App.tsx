@@ -84,12 +84,12 @@ export default function App() {
 
   const gallery = useMemo(
     () => [
-      { src: withBase('img/1.jpg'), label: 'Процес ремонту' },
-      { src: withBase('img/2.jpg'), label: 'Дизельний двигун' },
-      { src: withBase('img/3.jpg'), label: 'Діагностика' },
-      { src: withBase('img/4.jpg'), label: 'Розбір/збірка' },
-      { src: withBase('img/5.jpg'), label: 'Відновлення вузлів' },
-      { src: withBase('img/6.jpg'), label: 'Результат' },
+      { src: withBase('img/1.jpg'), label: 'Процес ремонту дизельного двигуна в майстерні' },
+      { src: withBase('img/2.jpg'), label: 'Дизельний двигун на стенді діагностики' },
+      { src: withBase('img/3.jpg'), label: 'Проведення комплексної діагностики' },
+      { src: withBase('img/4.jpg'), label: 'Розбір та збірка дизельного мотора' },
+      { src: withBase('img/5.jpg'), label: 'Відновлення вузлів і деталей' },
+      { src: withBase('img/6.jpg'), label: 'Готовий відремонтований дизельний двигун' },
     ],
     [],
   )
@@ -137,25 +137,27 @@ export default function App() {
 
       <Header />
 
-      <main id="main">
+      <main id="main" role="main">
         <Hero />
 
         <section id="services" className="section">
           <div className="container">
             <div className="sectionHead" data-reveal>
-              <h2>Наші послуги</h2>
+              <h2>Наші послуги з ремонту дизельних двигунів</h2>
               <p>
-                Дизель — це контроль. Ми працюємо точно, вимірювано й під результат.
+                Дизель — це контроль. Ми працюємо точно, вимірювано й під результат. Від діагностики до повного капітального ремонту.
               </p>
             </div>
 
             <div className="grid services">
-              {services.map((s) => (
-                <article className="card" key={s.title} data-reveal>
+              {services.map((s, idx) => (
+                <article className="card" id={`service-${idx + 1}`} key={s.title} data-reveal>
                   <div className="cardIcon" aria-hidden="true">
                     <span />
                   </div>
-                  <h3>{s.title}</h3>
+                  <h3>
+                    <a href={`#service-${idx + 1}`}>{s.title}</a>
+                  </h3>
                   <p>{s.desc}</p>
                   <a className="btn btnRed" href="#contacts">
                     Записатися
@@ -175,11 +177,11 @@ export default function App() {
                   Преміум сервіс — це не слова. Це процес, стандарти та відповідальність.
                 </p>
                 <ul className="bullets">
-                  <li>Працюємо по Одесі</li>
-                  <li>Досвід з дизельними моторами</li>
-                  <li>Гарантія на виконані роботи</li>
-                  <li>Чесна діагностика</li>
-                  <li>Реальні майстри, не перекупи</li>
+                  <li><strong>Працюємо по Одесі</strong> — швидкий приїзд, знання міста</li>
+                  <li><strong>Досвід з дизельними моторами</strong> — <a href="#services">наш профіль</a></li>
+                  <li><strong>Гарантія на виконані роботи</strong> — ваш спокій</li>
+                  <li><strong>Чесна діагностика</strong> — без зайвих замін</li>
+                  <li><strong>Реальні майстри, не перекупи</strong> — виконавці в сервісі</li>
                 </ul>
               </div>
 
@@ -217,15 +219,15 @@ export default function App() {
 
             <div className="grid problems">
               {[
-                'Машина димить',
-                'Пропала тяга',
-                'Сторонні шуми в моторі',
-                'Погано заводиться',
-                'Збільшилась витрата палива',
-              ].map((t) => (
-                <div className="chip" key={t} data-reveal>
-                  {t}
-                </div>
+                { id: 'smoke', text: 'Машина димить' },
+                { id: 'power', text: 'Пропала тяга' },
+                { id: 'noise', text: 'Сторонні шуми в моторі' },
+                { id: 'start', text: 'Погано заводиться' },
+                { id: 'fuel', text: 'Збільшилась витрата палива' },
+              ].map((p) => (
+                <a href="#contacts" key={p.id} className="chip" data-reveal>
+                  {p.text}
+                </a>
               ))}
             </div>
 
@@ -273,12 +275,17 @@ export default function App() {
             </div>
 
             <div className="grid reviews">
-              {reviews.map((r) => (
-                <article className="card" key={r.name} data-reveal>
+              {reviews.map((r, idx) => (
+                <article className="card" id={`review-${idx + 1}`} key={r.name} data-reveal>
                   <h3 className="reviewName">{r.name}</h3>
                   <p className="reviewText">{r.text}</p>
                 </article>
               ))}
+            </div>
+            
+            <div className="center" style={{ marginTop: '2rem' }} data-reveal>
+              <p className="muted">Хочете стати нашим наступним задоволеним клієнтом?</p>
+              <a className="btn btnRed" href="#services">Дивіться наші послуги</a>
             </div>
           </div>
         </section>
@@ -286,8 +293,8 @@ export default function App() {
         <section id="shop" className="section sectionAlt">
           <div className="container">
             <div className="sectionHead" data-reveal>
-              <h2>Магазин</h2>
-              <p>Моторні оливи. Пишіть — підкажемо наявність і деталі.</p>
+              <h2>Магазин моторних олив</h2>
+              <p>Якісні моторні оливи для дизельних двигунів. Питайте про наявність, ціни та рекомендований вибір для вашого авто. Замовленням в <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a> та <a href={VIBER_URL}>Viber</a>.</p>
             </div>
 
             <div className="twoCol">
@@ -359,9 +366,9 @@ export default function App() {
           <div className="container">
             <div className="twoCol">
               <div data-reveal>
-                <h2>Контакти</h2>
+                <h2>Контакти і режим роботи</h2>
                 <p className="muted">
-                  Одеса. Запишіться на діагностику — відповімо швидко та по суті.
+                  Знаходимось в Одесі. Запишіться на <a href="#contacts">діагностику</a> — відповімо швидко та по суті. Дивіться наші <a href="#services">послуги</a> та <a href="#reviews">відгуки</a>.
                 </p>
 
                 <div className="contacts">
@@ -376,17 +383,17 @@ export default function App() {
                     <div className="contactLabel">Телефон</div>
                     <div className="contactValue">
                       <div>
-                        <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
+                        <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a> — основний
                       </div>
                       <div>
-                        <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
+                        <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a> — додатковий
                       </div>
                     </div>
                   </div>
                   <div className="contactRow">
                     <div className="contactLabel">Telegram</div>
                     <a className="contactValue" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
-                      Написати в Telegram
+                      @dieselcraft_od
                     </a>
                   </div>
                   <div className="contactRow">
@@ -396,8 +403,12 @@ export default function App() {
                     </a>
                   </div>
                   <div className="contactRow">
-                    <div className="contactLabel">Графік</div>
-                    <div className="contactValue">Пн–Пт · 09:00–18:00; Сб · 09:00–14:00</div>
+                    <div className="contactLabel">Режим роботи</div>
+                    <div className="contactValue">
+                      <div><strong>Пн–Пт:</strong> 09:00–18:00</div>
+                      <div><strong>Сб:</strong> 09:00–14:00</div>
+                      <div><strong>Нд:</strong> Закрито</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -736,10 +747,23 @@ function Footer() {
           <div className="footerNote">{ADDRESS_DISPLAY_2}</div>
         </div>
         <div className="footerRight">
-          <a href="#services">Послуги</a>
-          <a href="#contacts">Контакти</a>
-          <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
-          <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
+          <nav aria-label="Основна навігація">
+            <a href="#main">На початок</a>
+            <a href="#services">Послуги</a>
+            <a href="#why">Чому ми</a>
+            <a href="#problems">Типові проблеми</a>
+          </nav>
+          <nav aria-label="Додаткова навігація">
+            <a href="#gallery">Галерея</a>
+            <a href="#reviews">Відгуки</a>
+            <a href="#shop">Магазин</a>
+            <a href="#contacts">Контакти</a>
+          </nav>
+          <nav aria-label="Контакти">
+            <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
+            <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
+            <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a>
+          </nav>
         </div>
       </div>
     </footer>
