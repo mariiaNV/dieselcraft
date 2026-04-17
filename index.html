@@ -13,27 +13,19 @@
       gtag('config', 'AW-17927910116')
     </script>
 
-    <!-- Event snippet for Інтерактивні номери телефонів conversion tracking -->
+    <!-- Event snippet for Интерактивные номера телефонов (3) conversion page -->
     <script>
       function gtag_report_conversion(url) {
         var callback = function () {
-          if (typeof url !== 'undefined') {
-            window.location = url
+          if (typeof(url) != 'undefined') {
+            window.location = url;
           }
-        }
-
-        if (typeof gtag === 'function') {
-          gtag('event', 'conversion', {
-            send_to: 'AW-17927910116/GMjfCMD-xYkcEOTl2ORC',
-            value: 1.0,
-            currency: 'UAH',
-            event_callback: callback,
-          })
-        } else {
-          callback()
-        }
-
-        return false
+        };
+        gtag('event', 'conversion', {
+            'send_to': 'AW-17927910116/_ahiCLfG250cEOTl2ORC',
+            'event_callback': callback
+        });
+        return false;
       }
     </script>
 
