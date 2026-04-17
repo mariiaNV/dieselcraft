@@ -46,6 +46,13 @@ const HERO_BANNER_SRC = withBase('img/banner.jpg')
 export default function App() {
   useRevealOnScroll()
 
+  const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const phoneLink = (e.currentTarget as any).href
+    if (typeof (window as any).gtag_report_conversion === 'function') {
+      return (window as any).gtag_report_conversion(phoneLink)
+    }
+  }
+
   const services = useMemo<Service[]>(
     () => [
       {
@@ -125,7 +132,7 @@ export default function App() {
               <h2>Потрібна діагностика?</h2>
               <p>Порівняйте результати з конкурентами — ми знайдемо справжню причину.</p>
             </div>
-            <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl">
+            <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" onClick={handlePhoneClick}>
               ☎️ Позвонити одразу
             </a>
           </div>
@@ -154,7 +161,7 @@ export default function App() {
                     <a href={`#service-${idx + 1}`}>{s.title}</a>
                   </h3>
                   <p>{s.desc}</p>
-                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
                     ☎️ Позвонити
                   </a>
                 </article>
@@ -187,10 +194,10 @@ export default function App() {
                   Контроль, сила і впевненість у твоєму дизелі.
                 </div>
                 <div className="panelActions">
-                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
                     ☎️ Позвонити
                   </a>
-                  <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`}>
+                  <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
                     Подзвонити зараз
                   </a>
                 </div>
@@ -220,14 +227,14 @@ export default function App() {
                 { id: 'start', text: 'Погано заводиться' },
                 { id: 'fuel', text: 'Збільшилась витрата палива' },
               ].map((p) => (
-                <a href={`tel:${PHONE_TEL_1}`} key={p.id} className="chip" data-reveal>
+                <a href={`tel:${PHONE_TEL_1}`} key={p.id} className="chip" data-reveal onClick={handlePhoneClick}>
                   {p.text}
                 </a>
               ))}
             </div>
 
             <div className="center" data-reveal>
-              <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`}>
+              <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
                 Ми знаємо, як це вирішити
               </a>
             </div>
@@ -332,7 +339,7 @@ export default function App() {
 
             <div className="guaranteeCTA" data-reveal>
               <h3>Готові розпочати ремонт?</h3>
-              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl">
+              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" onClick={handlePhoneClick}>
                 ☎️ Позвонити зараз
               </a>
             </div>
@@ -364,13 +371,13 @@ export default function App() {
 
                   <div className="branchItem">
                     <div className="branchLabel">Телефон</div>
-                    <a href={`tel:${BRANCH_1.phoneTel}`} className="branchValue phone-link">
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="branchValue phone-link" onClick={handlePhoneClick}>
                       {BRANCH_1.phone}
                     </a>
                   </div>
 
                   <div className="branchActions">
-                    <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed">
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" onClick={handlePhoneClick}>
                       📞 Дзвонити
                     </a>
                     <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
@@ -395,13 +402,13 @@ export default function App() {
 
                   <div className="branchItem">
                     <div className="branchLabel">Телефон</div>
-                    <a href={`tel:${BRANCH_2.phoneTel}`} className="branchValue phone-link">
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="branchValue phone-link" onClick={handlePhoneClick}>
                       {BRANCH_2.phone}
                     </a>
                   </div>
 
                   <div className="branchActions">
-                    <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed">
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" onClick={handlePhoneClick}>
                       📞 Дзвонити
                     </a>
                     <a href={VIBER_URL} className="btn btnGhost">
@@ -418,10 +425,10 @@ export default function App() {
                 <p>Позвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
               </div>
               <div className="quickContacts" aria-label="Швидкі контакти">
-                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_1.phone}`}>
+                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_1.phone}`} onClick={handlePhoneClick}>
                   📞 {BRANCH_1.phone}
                 </a>
-                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_2.phone}`}>
+                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_2.phone}`} onClick={handlePhoneClick}>
                   📞 {BRANCH_2.phone}
                 </a>
                 <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
