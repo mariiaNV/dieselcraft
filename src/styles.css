@@ -194,7 +194,7 @@ video {
   content: '';
   width: 30px;
   height: 30px;
-  background: url('../img/logo.png') center / contain no-repeat;
+  background: url('/img/logo.png') center / contain no-repeat;
   filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.35));
 }
 
@@ -244,10 +244,42 @@ video {
   gap: 12px;
 }
 
+.phones {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: flex-end;
+  line-height: 1.1;
+}
+
+.phones .phone {
+  font-size: 13px;
+}
+
+.phoneSecondary {
+  opacity: 0.78;
+}
+
 .phone {
   color: rgba(255, 255, 255, 0.82);
   font-weight: 650;
   letter-spacing: 0.2px;
+}
+
+.headerCall {
+  white-space: nowrap;
+}
+
+.headerCallAlt {
+  display: none;
+}
+
+.headerCallNumber {
+  display: none;
+  font-size: 12px;
+  font-weight: 850;
+  letter-spacing: 0.2px;
+  opacity: 0.92;
 }
 
 .btn {
@@ -1516,6 +1548,24 @@ textarea {
   z-index: 60;
 }
 
+.mobileCtaBtn {
+  flex: 1;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mobileCtaLabel {
+  line-height: 1.1;
+}
+
+.mobileCtaNumber {
+  font-size: 11px;
+  font-weight: 850;
+  color: rgba(255, 255, 255, 0.78);
+  letter-spacing: 0.25px;
+  line-height: 1.1;
+}
+
 @media (hover: none) {
   .btn:hover,
   .card:hover,
@@ -1628,11 +1678,29 @@ textarea {
     display: none;
   }
 
+  .phones {
+    display: none;
+  }
+
   .headerActions .btnRed {
     display: inline-flex;
     padding: 10px 12px;
     font-size: 13px;
     border-radius: 14px;
+  }
+
+  .headerCall {
+    flex-direction: column;
+    gap: 2px;
+    padding: 8px 12px;
+  }
+
+  .headerCallAlt {
+    display: inline-flex;
+  }
+
+  .headerCallNumber {
+    display: inline;
   }
 
   .hero {
@@ -1796,6 +1864,10 @@ textarea {
     flex: 1;
     padding: 10px 8px;
     font-size: 12px;
+  }
+
+  .mobileCtaNumber {
+    font-size: 11px;
   }
 }
 

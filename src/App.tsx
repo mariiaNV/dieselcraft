@@ -46,13 +46,6 @@ const HERO_BANNER_SRC = withBase('img/banner.jpg')
 export default function App() {
   useRevealOnScroll()
 
-  const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    const phoneLink = (e.currentTarget as any).href
-    if (typeof (window as any).gtag_report_conversion === 'function') {
-      return (window as any).gtag_report_conversion(phoneLink)
-    }
-  }
-
   const services = useMemo<Service[]>(
     () => [
       {
@@ -125,22 +118,22 @@ export default function App() {
 
       <Header />
 
-      <section id="hero-cta" className="section heroCTASection" data-reveal>
-        <div className="container">
-          <div className="heroCTAContent">
-            <div className="heroCTAText">
-              <h2>Потрібна діагностика?</h2>
-              <p>Порівняйте результати з конкурентами — ми знайдемо справжню причину.</p>
-            </div>
-            <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" onClick={handlePhoneClick}>
-              ☎️ Позвонити одразу
-            </a>
-          </div>
-        </div>
-      </section>
-
       <main id="main" role="main">
         <Hero />
+
+        <section id="hero-cta" className="section heroCTASection" data-reveal>
+          <div className="container">
+            <div className="heroCTAContent">
+              <div className="heroCTAText">
+                <h2>Потрібна діагностика?</h2>
+                <p>Порівняйте результати з конкурентами — ми знайдемо справжню причину.</p>
+              </div>
+              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+                📞 Подзвонити одразу
+              </a>
+            </div>
+          </div>
+        </section>
 
         <section id="services" className="section">
           <div className="container">
@@ -161,8 +154,8 @@ export default function App() {
                     <a href={`#service-${idx + 1}`}>{s.title}</a>
                   </h3>
                   <p>{s.desc}</p>
-                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
-                    ☎️ Позвонити
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+                    📞 Подзвонити
                   </a>
                 </article>
               ))}
@@ -194,10 +187,10 @@ export default function App() {
                   Контроль, сила і впевненість у твоєму дизелі.
                 </div>
                 <div className="panelActions">
-                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
-                    ☎️ Позвонити
+                  <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+                    📞 Подзвонити
                   </a>
-                  <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
+                  <a className="btn btnGhost" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
                     Подзвонити зараз
                   </a>
                 </div>
@@ -227,14 +220,14 @@ export default function App() {
                 { id: 'start', text: 'Погано заводиться' },
                 { id: 'fuel', text: 'Збільшилась витрата палива' },
               ].map((p) => (
-                <a href={`tel:${PHONE_TEL_1}`} key={p.id} className="chip" data-reveal onClick={handlePhoneClick}>
+                <a href={`tel:${PHONE_TEL_1}`} key={p.id} className="chip" data-reveal aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
                   {p.text}
                 </a>
               ))}
             </div>
 
             <div className="center" data-reveal>
-              <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} onClick={handlePhoneClick}>
+              <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
                 Ми знаємо, як це вирішити
               </a>
             </div>
@@ -339,8 +332,8 @@ export default function App() {
 
             <div className="guaranteeCTA" data-reveal>
               <h3>Готові розпочати ремонт?</h3>
-              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" onClick={handlePhoneClick}>
-                ☎️ Позвонити зараз
+              <a href={`tel:${PHONE_TEL_1}`} className="btn btnRed btnXl" aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+                📞 Подзвонити зараз
               </a>
             </div>
           </div>
@@ -371,13 +364,13 @@ export default function App() {
 
                   <div className="branchItem">
                     <div className="branchLabel">Телефон</div>
-                    <a href={`tel:${BRANCH_1.phoneTel}`} className="branchValue phone-link" onClick={handlePhoneClick}>
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="branchValue phone-link" aria-label={`Подзвонити ${BRANCH_1.phone}`}>
                       {BRANCH_1.phone}
                     </a>
                   </div>
 
                   <div className="branchActions">
-                    <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" onClick={handlePhoneClick}>
+                    <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_1.phone}`}>
                       📞 Дзвонити
                     </a>
                     <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
@@ -402,13 +395,13 @@ export default function App() {
 
                   <div className="branchItem">
                     <div className="branchLabel">Телефон</div>
-                    <a href={`tel:${BRANCH_2.phoneTel}`} className="branchValue phone-link" onClick={handlePhoneClick}>
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="branchValue phone-link" aria-label={`Подзвонити ${BRANCH_2.phone}`}>
                       {BRANCH_2.phone}
                     </a>
                   </div>
 
                   <div className="branchActions">
-                    <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" onClick={handlePhoneClick}>
+                    <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_2.phone}`}>
                       📞 Дзвонити
                     </a>
                     <a href={VIBER_URL} className="btn btnGhost">
@@ -422,13 +415,13 @@ export default function App() {
             <div className="contactFormSection" data-reveal>
               <div className="contactFormHead">
                 <h3>Готові розпочати?</h3>
-                <p>Позвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
+                <p>Подзвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
               </div>
               <div className="quickContacts" aria-label="Швидкі контакти">
-                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_1.phone}`} onClick={handlePhoneClick}>
+                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_1.phone}`}>
                   📞 {BRANCH_1.phone}
                 </a>
-                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Позвонити ${BRANCH_2.phone}`} onClick={handlePhoneClick}>
+                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_2.phone}`}>
                   📞 {BRANCH_2.phone}
                 </a>
                 <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
@@ -494,11 +487,21 @@ function Header() {
         </nav>
 
         <div className="headerActions">
-          <a className="phone" href={`tel:${PHONE_TEL_1}`} aria-label="Подзвонити">
-            {PHONE_DISPLAY_1}
+          <div className="phones" aria-label="Телефони">
+            <a className="phone" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити (Ліски) ${PHONE_DISPLAY_1}`}>
+              Ліски: {PHONE_DISPLAY_1}
+            </a>
+            <a className="phone phoneSecondary" href={`tel:${PHONE_TEL_2}`} aria-label={`Подзвонити (Приміська) ${PHONE_DISPLAY_2}`}>
+              Приміська: {PHONE_DISPLAY_2}
+            </a>
+          </div>
+          <a className="btn btnRed headerCall" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+            <span className="headerCallLabel">📞 Подзвонити</span>
+            <span className="headerCallNumber">{PHONE_DISPLAY_1}</span>
           </a>
-          <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} aria-label={`Позвонити ${PHONE_DISPLAY_1}`}>
-            ☎️ Позвонити
+          <a className="btn btnGhost headerCall headerCallAlt" href={`tel:${PHONE_TEL_2}`} aria-label={`Подзвонити ${PHONE_DISPLAY_2}`}>
+            <span className="headerCallLabel">Приміська</span>
+            <span className="headerCallNumber">{PHONE_DISPLAY_2}</span>
           </a>
           <button
             type="button"
@@ -560,7 +563,7 @@ function Header() {
                   <div className="menuBranchName">{BRANCH_1.name}</div>
                   <div className="menuBranchTime">{BRANCH_1.hours}</div>
                   <div className="menuBranchAddr">{BRANCH_1.address}</div>
-                  <a href={`tel:${BRANCH_1.phoneTel}`} className="menuBranchPhone" aria-label={`Позвонити ${BRANCH_1.phone}`}>
+                  <a href={`tel:${BRANCH_1.phoneTel}`} className="menuBranchPhone" aria-label={`Подзвонити ${BRANCH_1.phone}`}>
                     📞 {BRANCH_1.phone}
                   </a>
                 </div>
@@ -570,7 +573,7 @@ function Header() {
                   <div className="menuBranchName">{BRANCH_2.name}</div>
                   <div className="menuBranchTime">{BRANCH_2.hours}</div>
                   <div className="menuBranchAddr">{BRANCH_2.address}</div>
-                  <a href={`tel:${BRANCH_2.phoneTel}`} className="menuBranchPhone" aria-label={`Позвонити ${BRANCH_2.phone}`}>
+                  <a href={`tel:${BRANCH_2.phoneTel}`} className="menuBranchPhone" aria-label={`Подзвонити ${BRANCH_2.phone}`}>
                     📞 {BRANCH_2.phone}
                   </a>
                 </div>
@@ -580,10 +583,10 @@ function Header() {
             </div>
 
             <div className="menuActions">
-              <a className="btn btnRed btnFull" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Позвонити ${BRANCH_1.phone}`}>
+              <a className="btn btnRed btnFull" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Подзвонити ${BRANCH_1.phone}`}>
                 ☎️ {BRANCH_1.phone}
               </a>
-              <a className="btn btnGhost btnFull" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Позвонити ${BRANCH_2.phone}`}>
+              <a className="btn btnGhost btnFull" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Подзвонити ${BRANCH_2.phone}`}>
                 ☎️ {BRANCH_2.phone}
               </a>
               <div className="menuMessengers">
@@ -626,11 +629,11 @@ function Hero() {
             Професійна діагностика та ремонт дизельних моторів з гарантією.
           </p>
           <div className="ctaRow">
-            <a className="btn btnRed" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Позвонити ${BRANCH_1.phone}`}>
-              ☎️ Позвонити (Ліски)
+            <a className="btn btnRed" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Подзвонити ${BRANCH_1.phone}`}>
+              📞 Ліски: {BRANCH_1.phone}
             </a>
-            <a className="btn btnGhost" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Позвонити ${BRANCH_2.phone}`}>
-              ☎️ Позвонити (Приміська)
+            <a className="btn btnGhost" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Подзвонити ${BRANCH_2.phone}`}>
+              📞 Приміська: {BRANCH_2.phone}
             </a>
           </div>
           <div className="heroBadges">
@@ -712,11 +715,23 @@ function Footer() {
 function MobileCta() {
   return (
     <div className="mobileCta" aria-label="Швидкі дії">
-      <a className="btn btnRed" href={`tel:${PHONE_TEL_1}`} title={`Позвонити ${PHONE_DISPLAY_1}`}>
-        ☎️ Позвонити
+      <a
+        className="btn btnRed mobileCtaBtn"
+        href={`tel:${PHONE_TEL_1}`}
+        title={`Подзвонити ${PHONE_DISPLAY_1}`}
+        aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}
+      >
+        <span className="mobileCtaLabel">📞 Ліски</span>
+        <span className="mobileCtaNumber">{PHONE_DISPLAY_1}</span>
       </a>
-      <a className="btn btnGhost" href={`tel:${PHONE_TEL_2}`} title={`Позвонити ${PHONE_DISPLAY_2}`}>
-        ☎️ Друга філія
+      <a
+        className="btn btnGhost mobileCtaBtn"
+        href={`tel:${PHONE_TEL_2}`}
+        title={`Подзвонити ${PHONE_DISPLAY_2}`}
+        aria-label={`Подзвонити ${PHONE_DISPLAY_2}`}
+      >
+        <span className="mobileCtaLabel">📞 Приміська</span>
+        <span className="mobileCtaNumber">{PHONE_DISPLAY_2}</span>
       </a>
     </div>
   )
