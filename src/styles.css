@@ -1504,7 +1504,7 @@ textarea {
 }
 
 .footer {
-  padding: 26px 0 90px;
+  padding: 26px 0 110px;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -1552,6 +1552,8 @@ textarea {
   flex: 1;
   flex-direction: column;
   gap: 2px;
+  min-height: 54px;
+  justify-content: center;
 }
 
 .mobileCtaLabel {
@@ -1682,9 +1684,13 @@ textarea {
     display: none;
   }
 
+  .headerActions {
+    gap: 8px;
+  }
+
   .headerActions .btnRed {
     display: inline-flex;
-    padding: 10px 12px;
+    padding: 10px;
     font-size: 13px;
     border-radius: 14px;
   }
@@ -1692,7 +1698,9 @@ textarea {
   .headerCall {
     flex-direction: column;
     gap: 2px;
-    padding: 8px 12px;
+    padding: 8px 10px;
+    min-height: 48px;
+    justify-content: center;
   }
 
   .headerCallAlt {
@@ -1848,7 +1856,7 @@ textarea {
 
   .contactFormSection {
     padding: 16px;
-    margin-bottom: 60px;
+    margin-bottom: 74px;
   }
 
   .contactFormHead h3 {
