@@ -13,26 +13,30 @@ type Review = {
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
-const PHONE_DISPLAY_1 = '+380 93 383 83 73'
-const PHONE_TEL_1 = '+380933838373'
-const PHONE_DISPLAY_2 = '+380 93 383 83 63'
-const PHONE_TEL_2 = '+380933838363'
-const TELEGRAM_URL = 'https://t.me/dieselcraft_od'
-const VIBER_URL = 'viber://chat?number=%2B380933838373'
+const PHONE_DISPLAY = '+380 93 383 83 63'
+const PHONE_TEL = '+380933838363'
+const PHONE_WHATSAPP_DIGITS = '380933838363'
+const TELEGRAM_USERNAME = 'dieselcraft_od'
+const TELEGRAM_URL = `https://t.me/${TELEGRAM_USERNAME}`
+const WHATSAPP_URL = `https://wa.me/${PHONE_WHATSAPP_DIGITS}`
+const VIBER_URL = `viber://chat?number=%2B${PHONE_WHATSAPP_DIGITS}`
+// Legacy aliases kept for minimal diff in JSX bindings below.
+const PHONE_DISPLAY_1 = PHONE_DISPLAY
+const PHONE_TEL_1 = PHONE_TEL
 
 const BRANCH_1 = {
   name: 'Філіал в Ліськах',
   address: 'вулиця Академіка Заболотного, 47, Ліски, Одеса',
-  phone: PHONE_DISPLAY_1,
-  phoneTel: PHONE_TEL_1,
+  phone: PHONE_DISPLAY,
+  phoneTel: PHONE_TEL,
   hours: 'Пн–Пт: 09:00–18:00, Сб: 09:00–14:00',
 }
 
 const BRANCH_2 = {
   name: 'Філіал на Приміській',
   address: 'вул. Приміська, 1, Одеса',
-  phone: PHONE_DISPLAY_2,
-  phoneTel: PHONE_TEL_2,
+  phone: PHONE_DISPLAY,
+  phoneTel: PHONE_TEL,
   hours: 'Пн–Пт: 09:00–18:00, Сб: 09:00–14:00',
 }
 
@@ -413,20 +417,25 @@ export default function App() {
               </div>
             </div>
 
-            <div className="contactFormSection" data-reveal>
+            <div className="contactFormSection" id="lead-form" data-reveal>
               <div className="contactFormHead">
-                <h3>Готові розпочати?</h3>
-                <p>Подзвоніть одному з наших філіалів або виберіть зручний месенджер.</p>
+                <h3>Залиште заявку — передзвонимо за 5 хвилин</h3>
+                <p>Або одразу напишіть у зручний месенджер. Безплатна консультація.</p>
               </div>
+
+              <LeadForm />
+
+              <div className="formDivider" aria-hidden="true"><span>або одразу</span></div>
+
               <div className="quickContacts" aria-label="Швидкі контакти">
-                <a href={`tel:${BRANCH_1.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_1.phone}`}>
-                  📞 {BRANCH_1.phone}
+                <a href={`tel:${PHONE_TEL}`} className="btn btnRed" aria-label={`Подзвонити ${PHONE_DISPLAY}`}>
+                  📞 {PHONE_DISPLAY}
                 </a>
-                <a href={`tel:${BRANCH_2.phoneTel}`} className="btn btnRed" aria-label={`Подзвонити ${BRANCH_2.phone}`}>
-                  📞 {BRANCH_2.phone}
+                <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
+                  💚 WhatsApp
                 </a>
                 <a href={TELEGRAM_URL} target="_blank" rel="noreferrer" className="btn btnGhost">
-                  📱 Telegram
+                  ✈️ Telegram
                 </a>
                 <a href={VIBER_URL} className="btn btnGhost">
                   💬 Viber
@@ -440,7 +449,179 @@ export default function App() {
       </main>
 
       <MobileCta />
+      <DesktopCallFab />
     </div>
+  )
+}
+
+function LeadForm() {
+  const [name, setName] = useState('')
+  const [phone, setPhone] = useState('')
+  const [car, setCar] = useState('')
+  const [problem, setProblem] = useState('')
+  const [channel, setChannel] = useState<'whatsapp' | 'telegram' | 'call'>('whatsapp')
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle')
+  const [hint, setHint] = useState('')
+
+  function buildMessage() {
+    return (
+      `Заявка з сайту Diesel Craft\n` +
+      `Імʼя: ${name || '—'}\n` +
+      `Телефон: ${phone || '—'}\n` +
+      `Авто: ${car || '—'}\n` +
+      `Запит: ${problem || '—'}`
+    )
+  }
+
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault()
+    const digits = phone.replace(/\D/g, '')
+    if (digits.length < 9) {
+      setStatus('error')
+      setHint('Вкажіть номер телефону — без нього ми не зможемо передзвонити.')
+      return
+    }
+    setStatus('sending')
+    setHint('')
+
+    // Conversion event (Google Ads). The global submit listener also fires it,
+    // but we call here explicitly in case the navigation happens before bubbling.
+    try {
+      window.gtag_report_conversion?.()
+      window.gtag?.('event', 'lead_form_submit', { event_category: 'lead', channel })
+    } catch {
+      // ignore tracking errors
+    }
+
+    const text = buildMessage()
+
+    try {
+      if (channel === 'whatsapp') {
+        window.open(`${WHATSAPP_URL}?text=${encodeURIComponent(text)}`, '_blank', 'noopener')
+        setStatus('success')
+        setHint('Відкрили WhatsApp із текстом заявки — натисніть "Надіслати".')
+      } else if (channel === 'telegram') {
+        try {
+          await navigator.clipboard?.writeText(text)
+        } catch {
+          // clipboard may be blocked — Telegram still opens below
+        }
+        window.open(TELEGRAM_URL, '_blank', 'noopener')
+        setStatus('success')
+        setHint('Текст заявки скопійовано — просто вставте його в чат Telegram.')
+      } else {
+        window.location.href = `tel:${PHONE_TEL}`
+        setStatus('success')
+        setHint('Дзвонимо… Якщо не з’єдналось — наберіть ще раз через 1 хвилину.')
+      }
+    } catch {
+      setStatus('error')
+      setHint('Не вдалося відкрити месенджер. Зателефонуйте, будь ласка, напряму.')
+    }
+  }
+
+  return (
+    <form className="leadForm" onSubmit={onSubmit} noValidate>
+      <div className="leadRow">
+        <label className="leadField">
+          <span className="leadLabel">Як до вас звертатись</span>
+          <input
+            type="text"
+            name="name"
+            autoComplete="name"
+            placeholder="Олег"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+        </label>
+        <label className="leadField">
+          <span className="leadLabel">Телефон<span className="leadReq"> *</span></span>
+          <input
+            type="tel"
+            name="phone"
+            autoComplete="tel"
+            required
+            placeholder="+380 …"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            inputMode="tel"
+          />
+        </label>
+      </div>
+
+      <label className="leadField">
+        <span className="leadLabel">Авто / двигун</span>
+        <input
+          type="text"
+          name="car"
+          placeholder="VW Passat 2.0 TDI, 2014"
+          value={car}
+          onChange={(e) => setCar(e.target.value)}
+        />
+      </label>
+
+      <label className="leadField">
+        <span className="leadLabel">Коротко про проблему</span>
+        <textarea
+          name="problem"
+          rows={3}
+          placeholder="Димить, пропала тяга, не заводиться…"
+          value={problem}
+          onChange={(e) => setProblem(e.target.value)}
+        />
+      </label>
+
+      <div className="leadChannel" role="radiogroup" aria-label="Як з вами звʼязатись">
+        {[
+          { value: 'whatsapp', label: '💚 WhatsApp' },
+          { value: 'telegram', label: '✈️ Telegram' },
+          { value: 'call', label: '📞 Передзвоніть' },
+        ].map((opt) => (
+          <label key={opt.value} className={`channelOpt${channel === opt.value ? ' channelOptActive' : ''}`}>
+            <input
+              type="radio"
+              name="channel"
+              value={opt.value}
+              checked={channel === opt.value}
+              onChange={() => setChannel(opt.value as typeof channel)}
+            />
+            <span>{opt.label}</span>
+          </label>
+        ))}
+      </div>
+
+      <button type="submit" className="btn btnRed btnXl btnFull" disabled={status === 'sending'} data-conversion="lead">
+        {status === 'sending' ? 'Надсилаємо…' : 'Відправити заявку'}
+      </button>
+
+      {status === 'success' && hint ? (
+        <div className="leadMsg leadMsgOk" role="status">{hint}</div>
+      ) : null}
+      {status === 'error' && hint ? (
+        <div className="leadMsg leadMsgErr" role="alert">{hint}</div>
+      ) : null}
+
+      <p className="leadFinePrint">
+        Натискаючи кнопку, ви погоджуєтесь, що ми звʼяжемось із вами щодо ремонту. Ніякого спаму.
+      </p>
+    </form>
+  )
+}
+
+function DesktopCallFab() {
+  return (
+    <a
+      className="callFab"
+      href={`tel:${PHONE_TEL}`}
+      aria-label={`Подзвонити ${PHONE_DISPLAY}`}
+      title={`Подзвонити ${PHONE_DISPLAY}`}
+    >
+      <span className="callFabIcon" aria-hidden="true">📞</span>
+      <span className="callFabText">
+        <span className="callFabLabel">Подзвонити</span>
+        <span className="callFabNumber">{PHONE_DISPLAY}</span>
+      </span>
+    </a>
   )
 }
 
@@ -488,21 +669,14 @@ function Header() {
         </nav>
 
         <div className="headerActions">
-          <div className="phones" aria-label="Телефони">
-            <a className="phone" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити (Ліски) ${PHONE_DISPLAY_1}`}>
-              Ліски: {PHONE_DISPLAY_1}
-            </a>
-            <a className="phone phoneSecondary" href={`tel:${PHONE_TEL_2}`} aria-label={`Подзвонити (Приміська) ${PHONE_DISPLAY_2}`}>
-              Приміська: {PHONE_DISPLAY_2}
+          <div className="phones" aria-label="Телефон">
+            <a className="phone" href={`tel:${PHONE_TEL}`} aria-label={`Подзвонити ${PHONE_DISPLAY}`}>
+              {PHONE_DISPLAY}
             </a>
           </div>
-          <a className="btn btnRed headerCall" href={`tel:${PHONE_TEL_1}`} aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}>
+          <a className="btn btnRed headerCall" href={`tel:${PHONE_TEL}`} aria-label={`Подзвонити ${PHONE_DISPLAY}`}>
             <span className="headerCallLabel">📞 Подзвонити</span>
-            <span className="headerCallNumber">{PHONE_DISPLAY_1}</span>
-          </a>
-          <a className="btn btnGhost headerCall headerCallAlt" href={`tel:${PHONE_TEL_2}`} aria-label={`Подзвонити ${PHONE_DISPLAY_2}`}>
-            <span className="headerCallLabel">Приміська</span>
-            <span className="headerCallNumber">{PHONE_DISPLAY_2}</span>
+            <span className="headerCallNumber">{PHONE_DISPLAY}</span>
           </a>
           <button
             type="button"
@@ -584,11 +758,8 @@ function Header() {
             </div>
 
             <div className="menuActions">
-              <a className="btn btnRed btnFull" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Подзвонити ${BRANCH_1.phone}`}>
-                ☎️ {BRANCH_1.phone}
-              </a>
-              <a className="btn btnGhost btnFull" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Подзвонити ${BRANCH_2.phone}`}>
-                ☎️ {BRANCH_2.phone}
+              <a className="btn btnRed btnFull" href={`tel:${PHONE_TEL}`} aria-label={`Подзвонити ${PHONE_DISPLAY}`}>
+                ☎️ {PHONE_DISPLAY}
               </a>
               <div className="menuMessengers">
                 <a className="menuMessenger" href={TELEGRAM_URL} target="_blank" rel="noreferrer">
@@ -608,38 +779,62 @@ function Header() {
 
 function Hero() {
   const [reduceMotion, setReduceMotion] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
 
   useEffect(() => {
-    const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const sync = () => setReduceMotion(mq.matches)
-    sync()
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const desktop = window.matchMedia('(min-width: 820px)')
+    const syncMotion = () => setReduceMotion(motion.matches)
+    const syncDesktop = () => setIsDesktop(desktop.matches)
+    syncMotion()
+    syncDesktop()
 
-    mq.addEventListener('change', sync)
-    return () => mq.removeEventListener('change', sync)
+    motion.addEventListener('change', syncMotion)
+    desktop.addEventListener('change', syncDesktop)
+    return () => {
+      motion.removeEventListener('change', syncMotion)
+      desktop.removeEventListener('change', syncDesktop)
+    }
   }, [])
+
+  const allowAutoplay = isDesktop && !reduceMotion
 
   return (
     <section className="hero" aria-label="Ремонт дизельних двигунів в Одесі">
-      <img className="heroBanner" src={HERO_BANNER_SRC} alt="" aria-hidden="true" />
+      <img
+        className="heroBanner"
+        src={HERO_BANNER_SRC}
+        alt=""
+        aria-hidden="true"
+        loading="eager"
+        decoding="async"
+        // @ts-expect-error — React types lag behind, attribute is valid HTML
+        fetchpriority="high"
+      />
       <div className="heroBg" aria-hidden="true" />
       <div className="container heroInner">
         <div className="heroCopy" data-reveal>
           <div className="kicker">Diesel Craft · Одеса</div>
           <h1>Ремонт дизельних двигунів в Одесі</h1>
           <p className="lead">
-            Професійна діагностика та ремонт дизельних моторів з гарантією.
+            Діагностика безплатно при ремонті. Гарантія на роботи. Передзвонюємо за 5 хвилин.
           </p>
+          <ul className="heroStats" aria-label="Чому нам довіряють">
+            <li><strong>9+</strong><span>років досвіду</span></li>
+            <li><strong>1000+</strong><span>відремонтованих двигунів</span></li>
+            <li><strong>12 міс</strong><span>гарантія</span></li>
+          </ul>
           <div className="ctaRow">
-            <a className="btn btnRed" href={`tel:${BRANCH_1.phoneTel}`} aria-label={`Подзвонити ${BRANCH_1.phone}`}>
-              📞 Ліски: {BRANCH_1.phone}
+            <a className="btn btnRed btnXl" href={`tel:${PHONE_TEL}`} aria-label={`Подзвонити ${PHONE_DISPLAY}`}>
+              📞 {PHONE_DISPLAY}
             </a>
-            <a className="btn btnGhost" href={`tel:${BRANCH_2.phoneTel}`} aria-label={`Подзвонити ${BRANCH_2.phone}`}>
-              📞 Приміська: {BRANCH_2.phone}
+            <a className="btn btnGhost" href="#lead-form" data-conversion="off" aria-label="Залишити заявку">
+              📝 Залишити заявку
             </a>
           </div>
           <div className="heroBadges">
-            <span className="badge">Чесна діагностика</span>
-            <span className="badge">Гарантія</span>
+            <span className="badge">Безплатна діагностика</span>
+            <span className="badge">Гарантія до 12 міс</span>
             <span className="badge">Дизель — наш профіль</span>
           </div>
         </div>
@@ -650,13 +845,13 @@ function Hero() {
               className="heroVideo"
               muted
               playsInline
-              autoPlay={!reduceMotion}
-              loop={!reduceMotion}
-              preload="metadata"
+              autoPlay={allowAutoplay}
+              loop={allowAutoplay}
+              preload={allowAutoplay ? 'metadata' : 'none'}
               poster={HERO_VIDEO_POSTER}
               aria-label="Відео процесу ремонту дизельного двигуна"
             >
-              <source src={HERO_VIDEO_SRC} type="video/mp4" />
+              {allowAutoplay ? <source src={HERO_VIDEO_SRC} type="video/mp4" /> : null}
             </video>
             <div className="mediaHud" aria-hidden="true">
               <div className="mediaTop">
@@ -703,8 +898,7 @@ function Footer() {
             <a href="#contacts">Контакти</a>
           </nav>
           <nav aria-label="Контакти">
-            <a href={`tel:${PHONE_TEL_1}`}>{PHONE_DISPLAY_1}</a>
-            <a href={`tel:${PHONE_TEL_2}`}>{PHONE_DISPLAY_2}</a>
+            <a href={`tel:${PHONE_TEL}`}>{PHONE_DISPLAY}</a>
             <a href={TELEGRAM_URL} target="_blank" rel="noreferrer">Telegram</a>
           </nav>
         </div>
@@ -718,21 +912,23 @@ function MobileCta() {
     <div className="mobileCta" aria-label="Швидкі дії">
       <a
         className="btn btnRed mobileCtaBtn"
-        href={`tel:${PHONE_TEL_1}`}
-        title={`Подзвонити ${PHONE_DISPLAY_1}`}
-        aria-label={`Подзвонити ${PHONE_DISPLAY_1}`}
+        href={`tel:${PHONE_TEL}`}
+        title={`Подзвонити ${PHONE_DISPLAY}`}
+        aria-label={`Подзвонити ${PHONE_DISPLAY}`}
       >
-        <span className="mobileCtaLabel">📞 Ліски</span>
-        <span className="mobileCtaNumber">{PHONE_DISPLAY_1}</span>
+        <span className="mobileCtaLabel">📞 Подзвонити</span>
+        <span className="mobileCtaNumber">{PHONE_DISPLAY}</span>
       </a>
       <a
         className="btn btnGhost mobileCtaBtn"
-        href={`tel:${PHONE_TEL_2}`}
-        title={`Подзвонити ${PHONE_DISPLAY_2}`}
-        aria-label={`Подзвонити ${PHONE_DISPLAY_2}`}
+        href={TELEGRAM_URL}
+        target="_blank"
+        rel="noreferrer"
+        title="Написати в Telegram"
+        aria-label="Написати в Telegram"
       >
-        <span className="mobileCtaLabel">📞 Приміська</span>
-        <span className="mobileCtaNumber">{PHONE_DISPLAY_2}</span>
+        <span className="mobileCtaLabel">✈️ Telegram</span>
+        <span className="mobileCtaNumber">@dieselcraft_od</span>
       </a>
     </div>
   )
