@@ -13,9 +13,9 @@ type Review = {
 
 const withBase = (path: string) => `${import.meta.env.BASE_URL}${path.replace(/^\//, '')}`
 
-const PHONE_DISPLAY = '+380 93 383 83 63'
-const PHONE_TEL = '+380933838363'
-const PHONE_WHATSAPP_DIGITS = '380933838363'
+const PHONE_DISPLAY = '+380 93 383 83 73'
+const PHONE_TEL = '+380933838373'
+const PHONE_WHATSAPP_DIGITS = '380933838373'
 const TELEGRAM_USERNAME = 'dieselcraft_od'
 const TELEGRAM_URL = `https://t.me/${TELEGRAM_USERNAME}`
 const WHATSAPP_URL = `https://wa.me/${PHONE_WHATSAPP_DIGITS}`
